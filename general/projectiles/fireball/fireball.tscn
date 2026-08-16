@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://buxbnhprdsiwm"]
+
+[ext_resource type="Script" uid="uid://bifqn8wybck7c" path="res://general/projectiles/projectile.gd" id="1_ex2ek"]
+[ext_resource type="AudioStream" uid="uid://ciwnk7lbuuqe0" path="res://general/projectiles/fireball/fire.wav" id="2_aqwrc"]
+[ext_resource type="AudioStream" uid="uid://cocr016gwfir5" path="res://general/projectiles/fireball/explode.wav" id="3_p1jc4"]
+[ext_resource type="Texture2D" uid="uid://bg5u5mmiva7uu" path="res://general/projectiles/fireball/fireball.png" id="4_qf6s6"]
+[ext_resource type="Script" uid="uid://dsybrsdmt85s7" path="res://general/scripts/hazard_area.gd" id="5_aqwrc"]
+[ext_resource type="Script" uid="uid://5nwgpdrd1041" path="res://general/scripts/light_flicker.gd" id="6_p1jc4"]
+
+[sub_resource type="Animation" id="Animation_lcq27"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_1gu42"]
+resource_name = "default"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_p1jc4"]
+resource_name = "destroy"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2nc14"]
+_data = {
+&"RESET": SubResource("Animation_lcq27"),
+&"default": SubResource("Animation_1gu42"),
+&"destroy": SubResource("Animation_p1jc4")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qf6s6"]
+
+[sub_resource type="Gradient" id="Gradient_hl1ks"]
+offsets = PackedFloat32Array(0, 0.34666666, 0.73333335, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.76037925, 0, 1, 0.51357734, 0.07968958, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qf6s6"]
+gradient = SubResource("Gradient_hl1ks")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Fireball" type="CharacterBody2D" unique_id=1836703450]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_ex2ek")
+move_speed = 250.0
+gravity_strength = 0.5
+spawn_audio = ExtResource("2_aqwrc")
+destroy_audio = ExtResource("3_p1jc4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1743809700]
+scale = Vector2(-1, 1)
+texture = ExtResource("4_qf6s6")
+hframes = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1543210165]
+libraries/ = SubResource("AnimationLibrary_2nc14")
+autoplay = &"default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=808145458]
+visible = false
+shape = SubResource("CircleShape2D_qf6s6")
+
+[node name="HazardArea" type="Area2D" parent="." unique_id=648858283]
+collision_layer = 0
+collision_mask = 19
+script = ExtResource("5_aqwrc")
+damage = 10.0
+metadata/_custom_type_script = "uid://dsybrsdmt85s7"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HazardArea" unique_id=735999855]
+shape = SubResource("CircleShape2D_qf6s6")
+debug_color = Color(0.7019608, 0, 0.023529412, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1993735381]
+energy = 0.75
+texture = SubResource("GradientTexture2D_qf6s6")
+script = ExtResource("6_p1jc4")
+flicker_intensity = 0.2
+flicker_frequency = 0.1

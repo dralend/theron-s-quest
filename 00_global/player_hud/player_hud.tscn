@@ -1,0 +1,231 @@
+[gd_scene format=3 uid="uid://b23jjjl55rlpk"]
+
+[ext_resource type="Texture2D" uid="uid://evu8scigiprw" path="res://00_global/player_hud/health_bar_frame.png" id="1_hv14i"]
+[ext_resource type="Script" uid="uid://bwm71goo4gm1t" path="res://00_global/player_hud/player_hud.gd" id="1_vb1bs"]
+[ext_resource type="Resource" uid="uid://b04r0mjwn3x0r" path="res://00_global/visual_effects/hit_particle_settings/hit_magic_blue.tres" id="3_26715"]
+[ext_resource type="Texture2D" uid="uid://c74mti5ht3aof" path="res://general/coin/coin.png" id="4_tdgrf"]
+[ext_resource type="FontFile" uid="uid://67cawouxwkbr" path="res://general/fonts/m5x7.ttf" id="5_4jtec"]
+
+[sub_resource type="Gradient" id="Gradient_vb1bs"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_26715"]
+gradient = SubResource("Gradient_vb1bs")
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_tdgrf"]
+colors = PackedColorArray(0.8627451, 0.34117648, 0.34117648, 1, 0.90053093, 0.4976443, 0.4976443, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4jtec"]
+gradient = SubResource("Gradient_tdgrf")
+
+[sub_resource type="GDScript" id="GDScript_vb1bs"]
+script/source = "extends Button
+
+@export var particle_settings : HitParticleSettings
+const SPIKE_DUMMY = preload(\"uid://dcq1825l8xtt0\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pressed.connect( _on_pressed )
+	pass # Replace with function body.
+
+
+func _on_pressed() -> void:
+	var player : Player = get_tree().get_first_node_in_group(\"Player\")
+	player.ground_slam = !player.ground_slam
+	pass
+"
+
+[sub_resource type="Animation" id="Animation_4jtec"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_maesk"]
+resource_name = "default"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u06p2"]
+_data = {
+&"RESET": SubResource("Animation_4jtec"),
+&"default": SubResource("Animation_maesk")
+}
+
+[node name="PlayerHud" type="CanvasLayer" unique_id=140021007]
+process_mode = 3
+layer = 2
+script = ExtResource("1_vb1bs")
+
+[node name="Control" type="Control" parent="." unique_id=1490341602]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HPMarginContainer" type="MarginContainer" parent="Control" unique_id=266844248]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 107.0
+offset_bottom = 28.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/HPMarginContainer" unique_id=1201563171]
+layout_mode = 2
+texture = ExtResource("1_hv14i")
+patch_margin_left = 27
+patch_margin_right = 7
+axis_stretch_horizontal = 1
+
+[node name="HPBar" type="TextureProgressBar" parent="Control/HPMarginContainer/NinePatchRect" unique_id=1282802215]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 6.0
+offset_right = -3.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+rounded = true
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_26715")
+texture_progress = SubResource("GradientTexture2D_4jtec")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="Control" unique_id=80970566]
+visible = false
+layout_mode = 0
+offset_left = 324.0
+offset_top = 9.0
+offset_right = 473.0
+offset_bottom = 32.0
+text = "Toggle Ground Slam"
+script = SubResource("GDScript_vb1bs")
+particle_settings = ExtResource("3_26715")
+
+[node name="GameOver" type="Control" parent="Control" unique_id=1731042568]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/GameOver" unique_id=1344641196]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7882353)
+
+[node name="Label" type="Label" parent="Control/GameOver" unique_id=993510164]
+modulate = Color(0.47843137, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -16.0
+offset_right = 38.5
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/GameOver" unique_id=1959225682]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = 22.0
+offset_right = 152.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoadButton" type="Button" parent="Control/GameOver/HBoxContainer" unique_id=764928871]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "load last save"
+
+[node name="QuitButton" type="Button" parent="Control/GameOver/HBoxContainer" unique_id=492922985]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "quit to title"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1285871887]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 10.0
+offset_right = 476.0
+offset_bottom = 23.0
+
+[node name="Control" type="Control" parent="Control/HBoxContainer" unique_id=962988035]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HBoxContainer/Control" unique_id=720742520]
+position = Vector2(1, 8)
+texture = ExtResource("4_tdgrf")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/HBoxContainer/Control" unique_id=393241713]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_u06p2")
+autoplay = &"default"
+
+[node name="GoldCountLabel" type="Label" parent="Control/HBoxContainer" unique_id=2023865652]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("5_4jtec")
+text = "00"

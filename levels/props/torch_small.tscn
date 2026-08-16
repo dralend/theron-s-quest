@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://elpi0chrtagi"]
+
+[ext_resource type="Texture2D" uid="uid://j2vbbl563j77" path="res://levels/tilesets/sprites/forgotten_forest_terrain.png" id="1_t7oo7"]
+[ext_resource type="TileSet" uid="uid://jl8xm6vayrxi" path="res://levels/tilesets/forgotten_forest.tres" id="2_3o5b4"]
+[ext_resource type="Script" uid="uid://5nwgpdrd1041" path="res://general/scripts/light_flicker.gd" id="3_xp55r"]
+
+[sub_resource type="Gradient" id="Gradient_hl1ks"]
+offsets = PackedFloat32Array(0, 0.34666666, 0.73333335, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.76037925, 0, 1, 0.51357734, 0.07968958, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eh2w3"]
+gradient = SubResource("Gradient_hl1ks")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o2kkj"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_1h8p5"]
+colors = PackedColorArray(1.353256, 1.0810534, 0, 1, 1.353256, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hl1ks"]
+gradient = SubResource("Gradient_1h8p5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_srqde"]
+particle_flag_disable_z = true
+direction = Vector3(0, -20, 0)
+spread = 66.0
+initial_velocity_min = 20.0
+initial_velocity_max = 300.0
+angular_velocity_min = -200.00002
+angular_velocity_max = 199.99998
+gravity = Vector3(0, 98, 0)
+color_ramp = SubResource("GradientTexture1D_hl1ks")
+turbulence_enabled = true
+turbulence_influence_max = 0.3
+turbulence_initial_displacement_min = -19.999998
+turbulence_initial_displacement_max = 20.000002
+
+[node name="torch" type="Node2D" unique_id=1822556793]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=465565471]
+position = Vector2(0, -7)
+texture = ExtResource("1_t7oo7")
+region_enabled = true
+region_rect = Rect2(42, 477, 11, 34)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1461181907]
+position = Vector2(-7, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 253, 255, 0, 0, 4, 0, 30, 0, 0, 0)
+tile_set = ExtResource("2_3o5b4")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1140175167]
+position = Vector2(0, -29)
+energy = 0.75
+texture = SubResource("GradientTexture2D_eh2w3")
+script = ExtResource("3_xp55r")
+flicker_intensity = 0.2
+flicker_frequency = 0.1
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1720223247]
+material = SubResource("CanvasItemMaterial_o2kkj")
+position = Vector2(0, -33)
+amount = 5
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_srqde")

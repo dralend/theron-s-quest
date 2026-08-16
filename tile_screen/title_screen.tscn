@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://cs38omed071b"]
+
+[ext_resource type="Script" uid="uid://cpk5ibmruwx4q" path="res://tile_screen/title_screen.gd" id="1_bh32f"]
+[ext_resource type="Texture2D" uid="uid://8i8fhs1tc2hl" path="res://tile_screen/therons_quest_background_480x270.png" id="2_20v12"]
+[ext_resource type="Texture2D" uid="uid://b11h5yxxyex7c" path="res://tile_screen/TheronsQuest_TitleAnimation.png" id="5_lac46"]
+[ext_resource type="Script" uid="uid://11wam0e7xdau" path="res://music/music_auto_trigger.gd" id="6_lac46"]
+[ext_resource type="AudioStream" uid="uid://c6xm5v8c17hx0" path="res://music/title_01.ogg" id="7_4fx0s"]
+
+[sub_resource type="Animation" id="Animation_bh32f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_20v12"]
+resource_name = "loop"
+length = 0.9
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_af0m1"]
+_data = {
+&"RESET": SubResource("Animation_bh32f"),
+&"loop": SubResource("Animation_20v12")
+}
+
+[node name="TitleScreen" type="CanvasLayer" unique_id=1538423371]
+layer = 5
+script = ExtResource("1_bh32f")
+
+[node name="Control" type="Control" parent="." unique_id=751045362]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=960040560]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.18772161, 0.18772161, 0.18772161, 1)
+
+[node name="TileMapContainer" type="Control" parent="Control" unique_id=1109753086]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/TileMapContainer" unique_id=1287063892]
+position = Vector2(240.5, 135.00002)
+texture = ExtResource("2_20v12")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=188754949]
+layer = 6
+
+[node name="MainMenu" type="VBoxContainer" parent="Control/CanvasLayer" unique_id=1490021855]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -106.0
+offset_right = 88.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Logo" type="Control" parent="Control/CanvasLayer/MainMenu" unique_id=1573702604]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/CanvasLayer/MainMenu/Logo" unique_id=1785734233]
+position = Vector2(0, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_lac46")
+hframes = 3
+vframes = 3
+
+[node name="LogoAnimation" type="AnimationPlayer" parent="Control/CanvasLayer/MainMenu/Logo" unique_id=1092652880]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_af0m1")
+autoplay = &"loop"
+
+[node name="NewGameButton" type="Button" parent="Control/CanvasLayer/MainMenu" unique_id=564248632]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New Game"
+
+[node name="LoadGameButton" type="Button" parent="Control/CanvasLayer/MainMenu" unique_id=1990353499]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load Game"
+
+[node name="NewGameMenu" type="VBoxContainer" parent="Control/CanvasLayer" unique_id=832925364]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -49.0
+offset_right = 88.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Control/CanvasLayer/NewGameMenu" unique_id=572620349]
+modulate = Color(0.6745098, 0.19607843, 0.19607843, 1)
+layout_mode = 2
+text = "Start a new game..."
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Control/CanvasLayer/NewGameMenu" unique_id=97608981]
+layout_mode = 2
+
+[node name="NewSlot01" type="Button" parent="Control/CanvasLayer/NewGameMenu" unique_id=197461283]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Begin Slot 01"
+
+[node name="NewSlot02" type="Button" parent="Control/CanvasLayer/NewGameMenu" unique_id=1266444881]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Begin Slot 02"
+
+[node name="NewSlot03" type="Button" parent="Control/CanvasLayer/NewGameMenu" unique_id=909321091]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Begin Slot 03"
+
+[node name="LoadGameMenu" type="VBoxContainer" parent="Control/CanvasLayer" unique_id=1748030121]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -49.0
+offset_right = 88.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Control/CanvasLayer/LoadGameMenu" unique_id=1818391899]
+modulate = Color(0.6745098, 0.19607843, 0.19607843, 1)
+layout_mode = 2
+text = "Load a saved game..."
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Control/CanvasLayer/LoadGameMenu" unique_id=1483330235]
+layout_mode = 2
+
+[node name="LoadSlot01" type="Button" parent="Control/CanvasLayer/LoadGameMenu" unique_id=364218526]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load Slot 01"
+
+[node name="LoadSlot02" type="Button" parent="Control/CanvasLayer/LoadGameMenu" unique_id=1290139149]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load Slot 02"
+
+[node name="LoadSlot03" type="Button" parent="Control/CanvasLayer/LoadGameMenu" unique_id=1007384870]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load Slot 03"
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=132162175]
+script = ExtResource("6_lac46")
+track = ExtResource("7_4fx0s")
+metadata/_custom_type_script = "uid://11wam0e7xdau"

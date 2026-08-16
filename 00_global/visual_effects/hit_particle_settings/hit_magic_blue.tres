@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="HitParticleSettings" format=3 uid="uid://b04r0mjwn3x0r"]
+
+[ext_resource type="Script" uid="uid://c07gr7xtt75fd" path="res://00_global/visual_effects/hit_particle_settings.gd" id="1_avoea"]
+
+[sub_resource type="Gradient" id="Gradient_avoea"]
+offsets = PackedFloat32Array(0, 0.63125, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 1, 0.47376347, 1, 0, 0.2901961, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y7vkf"]
+gradient = SubResource("Gradient_avoea")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[resource]
+script = ExtResource("1_avoea")
+count = 100
+texture = SubResource("GradientTexture2D_y7vkf")
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"

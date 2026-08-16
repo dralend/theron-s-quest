@@ -1,0 +1,298 @@
+[gd_scene format=3 uid="uid://cyytp58fmcba2"]
+
+[ext_resource type="Texture2D" uid="uid://cuhektkx5h4wj" path="res://player/sprites/abilities.png" id="1_wjh47"]
+[ext_resource type="Script" uid="uid://ba87ipcwljwwy" path="res://general/ability_pickup/ability_pickup.gd" id="1_xxigd"]
+[ext_resource type="Script" uid="uid://cl8wby0ke5808" path="res://general/scripts/breakable.gd" id="2_1ggl3"]
+[ext_resource type="Script" uid="uid://c07gr7xtt75fd" path="res://00_global/visual_effects/hit_particle_settings.gd" id="3_1ggl3"]
+[ext_resource type="AudioStream" uid="uid://b5ocnhao51hfa" path="res://general/audio/ability_crack.wav" id="3_xxigd"]
+[ext_resource type="AudioStream" uid="uid://usax86yn7b3x" path="res://general/audio/ability_acquire.wav" id="4_q7t65"]
+[ext_resource type="Script" uid="uid://ptbycb4ueu2v" path="res://general/scripts/damage_area.gd" id="5_dxffq"]
+[ext_resource type="Script" uid="uid://5nwgpdrd1041" path="res://general/scripts/light_flicker.gd" id="8_q7t65"]
+
+[sub_resource type="Animation" id="Animation_1ggl3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AbilitySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xxigd"]
+resource_name = "dash"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AbilitySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_q7t65"]
+resource_name = "double_jump"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AbilitySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_dxffq"]
+resource_name = "ground_slam"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AbilitySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_wvp8x"]
+resource_name = "morph_roll"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AbilitySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [15, 16, 17, 18, 19]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q7t65"]
+_data = {
+&"RESET": SubResource("Animation_1ggl3"),
+&"dash": SubResource("Animation_xxigd"),
+&"double_jump": SubResource("Animation_q7t65"),
+&"ground_slam": SubResource("Animation_dxffq"),
+&"morph_roll": SubResource("Animation_wvp8x")
+}
+
+[sub_resource type="Animation" id="Animation_ugn6l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%AbilitySprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g0nov"]
+resource_name = "default"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+
+[sub_resource type="Animation" id="Animation_qlojs"]
+resource_name = "destroy"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [23, 24]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%AbilitySprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fvhao"]
+_data = {
+&"RESET": SubResource("Animation_ugn6l"),
+&"default": SubResource("Animation_g0nov"),
+&"destroy": SubResource("Animation_qlojs")
+}
+
+[sub_resource type="Resource" id="Resource_xxigd"]
+script = ExtResource("3_1ggl3")
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"
+
+[sub_resource type="Resource" id="Resource_q7t65"]
+script = ExtResource("3_1ggl3")
+count = 5
+color = Color(0, 1, 0.7058824, 1)
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"
+
+[sub_resource type="Resource" id="Resource_dxffq"]
+script = ExtResource("3_1ggl3")
+count = 10
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"
+
+[sub_resource type="Resource" id="Resource_wvp8x"]
+script = ExtResource("3_1ggl3")
+count = 25
+color = Color(0, 1, 0.7058824, 1)
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvp8x"]
+radius = 20.0
+
+[sub_resource type="Gradient" id="Gradient_dxffq"]
+offsets = PackedFloat32Array(0, 0.34666666, 0.73333335, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.25666898, 1, 0.70125294, 1, 0, 0.34305245, 0.64468336, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wvp8x"]
+gradient = SubResource("Gradient_dxffq")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="AbilityPickup" type="Node2D" unique_id=1743431874]
+z_index = 1
+script = ExtResource("1_xxigd")
+
+[node name="AbilitySprite" type="Sprite2D" parent="." unique_id=949315941]
+unique_name_in_owner = true
+texture = ExtResource("1_wjh47")
+hframes = 5
+vframes = 5
+
+[node name="AbilityAnim" type="AnimationPlayer" parent="AbilitySprite" unique_id=434529966]
+unique_name_in_owner = true
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_q7t65")
+autoplay = &"dash"
+
+[node name="OrbSprite" type="Sprite2D" parent="." unique_id=1425421248]
+unique_name_in_owner = true
+texture = ExtResource("1_wjh47")
+hframes = 5
+vframes = 5
+frame = 20
+
+[node name="OrbAnim" type="AnimationPlayer" parent="OrbSprite" unique_id=1205115247]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_fvhao")
+autoplay = &"default"
+
+[node name="Breakable" type="Node2D" parent="." unique_id=2121104833]
+script = ExtResource("2_1ggl3")
+fixed_hit_count = true
+hit_particles = Array[ExtResource("3_1ggl3")]([SubResource("Resource_xxigd"), SubResource("Resource_q7t65")])
+destroy_particles = Array[ExtResource("3_1ggl3")]([SubResource("Resource_dxffq"), SubResource("Resource_wvp8x")])
+hit_audio = ExtResource("3_xxigd")
+destroy_audio = ExtResource("4_q7t65")
+metadata/_custom_type_script = "uid://cl8wby0ke5808"
+
+[node name="DamageArea" type="Area2D" parent="Breakable" unique_id=691965638]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("5_dxffq")
+metadata/_custom_type_script = "uid://ptbycb4ueu2v"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Breakable/DamageArea" unique_id=295113527]
+visible = false
+shape = SubResource("CircleShape2D_wvp8x")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=548405407]
+energy = 0.75
+texture = SubResource("GradientTexture2D_wvp8x")
+script = ExtResource("8_q7t65")
+flicker_intensity = 0.2
+flicker_frequency = 0.1

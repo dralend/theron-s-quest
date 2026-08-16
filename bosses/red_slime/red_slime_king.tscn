@@ -1,0 +1,377 @@
+[gd_scene format=3 uid="uid://dqtjork0q65pe"]
+
+[ext_resource type="Script" uid="uid://dgby8rtw2si6u" path="res://enemies/scripts/enemy.gd" id="1_3037k"]
+[ext_resource type="Texture2D" uid="uid://b1idxe8tc0cnp" path="res://bosses/red_slime/slimeRed.png" id="2_3037k"]
+[ext_resource type="Texture2D" uid="uid://77g8y07xia8y" path="res://bosses/red_slime/SlimeAttackRed_01.png" id="3_4rw4k"]
+[ext_resource type="Script" uid="uid://ptbycb4ueu2v" path="res://general/scripts/damage_area.gd" id="3_jrd0a"]
+[ext_resource type="Texture2D" uid="uid://ch3vj43upr30a" path="res://bosses/red_slime/slimeBoss_RedAttack.png" id="4_bgsyj"]
+[ext_resource type="AudioStream" uid="uid://b41bkb46v4knk" path="res://enemies/slime/slime_hit.wav" id="4_vpro0"]
+[ext_resource type="Script" uid="uid://dsybrsdmt85s7" path="res://general/scripts/hazard_area.gd" id="5_1w464"]
+[ext_resource type="Script" uid="uid://i3qn4pbsaesp" path="res://enemies/scripts/enemy_state_machine.gd" id="6_uygm1"]
+[ext_resource type="Script" uid="uid://dywm0814cbsui" path="res://enemies/scripts/states/es_walk.gd" id="7_lrhuj"]
+[ext_resource type="Script" uid="uid://bbod2suue51tu" path="res://enemies/scripts/states/es_stun.gd" id="8_nu4ka"]
+[ext_resource type="Script" uid="uid://ckvrvva6tg48" path="res://enemies/scripts/states/es_death.gd" id="9_j1f5k"]
+[ext_resource type="AudioStream" uid="uid://dewyjcqej02w" path="res://enemies/slime/slime_death.wav" id="10_wta4c"]
+[ext_resource type="Script" uid="uid://bmrx8xv8pech1" path="res://enemies/scripts/decision_engines/decision_engine_basic.gd" id="11_jmskn"]
+[ext_resource type="Script" uid="uid://bdsfqblna5q7o" path="res://enemies/scripts/sensors/edge_sensor.gd" id="12_io8rv"]
+[ext_resource type="Script" uid="uid://cn1yskw26ax18" path="res://enemies/scripts/states/es_attack.gd" id="13_bgsyj"]
+[ext_resource type="Script" uid="uid://4x848ophrw7x" path="res://enemies/scripts/sensors/player_sensor.gd" id="13_pawht"]
+[ext_resource type="Script" uid="uid://c5lnloigumv6o" path="res://enemies/scripts/enemy_hit_particles.gd" id="14_pnjad"]
+[ext_resource type="Script" uid="uid://c07gr7xtt75fd" path="res://00_global/visual_effects/hit_particle_settings.gd" id="15_oshsx"]
+[ext_resource type="Script" uid="uid://bjjllxinpp7su" path="res://general/scripts/loot_dropper.gd" id="16_n8rca"]
+[ext_resource type="Script" uid="uid://b3r5v2b120jt3" path="res://general/scripts/loot_data.gd" id="17_qts50"]
+[ext_resource type="Script" uid="uid://dpgocncx1onug" path="res://general/scripts/damage_modulate.gd" id="18_6vfrp"]
+[ext_resource type="Script" uid="uid://6elvigpr616e" path="res://general/scripts/attack_area.gd" id="22_lluae"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7cba3"]
+radius = 36.0
+height = 108.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu28u"]
+size = Vector2(87, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5napv"]
+size = Vector2(93, 60)
+
+[sub_resource type="Animation" id="Animation_ovel5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("attack:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ranged_attack:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lluae"]
+resource_name = "attack"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("attack:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_3jlja"]
+resource_name = "death"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_4rw4k"]
+resource_name = "ranged_attack"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ranged_attack:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_0nqm1"]
+resource_name = "stun"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_dq0sk"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uucha"]
+_data = {
+&"RESET": SubResource("Animation_ovel5"),
+&"attack": SubResource("Animation_lluae"),
+&"death": SubResource("Animation_3jlja"),
+&"ranged_attack": SubResource("Animation_4rw4k"),
+&"stun": SubResource("Animation_0nqm1"),
+&"walk": SubResource("Animation_dq0sk")
+}
+
+[sub_resource type="Curve" id="Curve_lluae"]
+_data = [Vector2(0.5729167, 0), 0.0, 0.0, 0, 0, Vector2(0.5729267, 1), 0.24357441, 0.24357441, 0, 0, Vector2(0.9010417, 0), -4.170787, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="GDScript" id="GDScript_3jlja"]
+script/source = "extends Label
+
+@onready var player_sensor: PlayerSensor = $\"../PlayerSensor\"
+@onready var slime_2: Enemy = $\"..\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(_delta: float) -> void:
+	text = \"\"
+	text = \"target = \"
+	text += slime_2.blackboard.target.name if slime_2.blackboard.target else \"\"
+	text += \"\\n  dist = \"
+	text += str( slime_2.blackboard.distance_to_target )
+	pass
+"
+
+[sub_resource type="Gradient" id="Gradient_dq0sk"]
+offsets = PackedFloat32Array(0.5208333, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uucha"]
+gradient = SubResource("Gradient_dq0sk")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Resource" id="Resource_qpicr"]
+script = ExtResource("15_oshsx")
+count = 12
+color = Color(0, 0.58991456, 1, 1)
+texture = SubResource("GradientTexture2D_uucha")
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"
+
+[sub_resource type="Resource" id="Resource_vpnvx"]
+script = ExtResource("15_oshsx")
+count = 24
+color = Color(0, 0.58991456, 1, 1)
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"
+
+[sub_resource type="Resource" id="Resource_7lkcl"]
+script = ExtResource("15_oshsx")
+color = Color(0.9998151, 0.99993056, 1, 1)
+metadata/_custom_type_script = "uid://c07gr7xtt75fd"
+
+[sub_resource type="Resource" id="Resource_2mgqq"]
+script = ExtResource("17_qts50")
+item = "uid://ildvsvsow7ol"
+metadata/_custom_type_script = "uid://b3r5v2b120jt3"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3ofd"]
+size = Vector2(68, 44)
+
+[node name="red_slime_king" type="CharacterBody2D" unique_id=1628672036]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_3037k")
+health = 15.0
+face_left_on_start = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1177165815]
+position = Vector2(0, -59)
+scale = Vector2(4, 4)
+texture = ExtResource("2_3037k")
+hframes = 6
+vframes = 3
+
+[node name="ranged_attack" type="Sprite2D" parent="." unique_id=311905271]
+visible = false
+position = Vector2(3, -31)
+scale = Vector2(4, 4)
+texture = ExtResource("3_4rw4k")
+hframes = 8
+
+[node name="attack" type="Sprite2D" parent="." unique_id=991886894]
+visible = false
+position = Vector2(-22, -53)
+scale = Vector2(4, 4)
+texture = ExtResource("4_bgsyj")
+hframes = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=736376445]
+position = Vector2(-1, -31)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_7cba3")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=669138140]
+visible = false
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("3_jrd0a")
+audio = ExtResource("4_vpro0")
+metadata/_custom_type_script = "uid://ptbycb4ueu2v"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1646144987]
+position = Vector2(-0.5, -31)
+shape = SubResource("RectangleShape2D_nu28u")
+
+[node name="HazardArea" type="Area2D" parent="." unique_id=2049787416]
+visible = false
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("5_1w464")
+metadata/_custom_type_script = "uid://dsybrsdmt85s7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea" unique_id=1587595459]
+position = Vector2(1.5, -29)
+shape = SubResource("RectangleShape2D_5napv")
+debug_color = Color(1, 0.02557236, 0, 0.41960785)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1330614112]
+libraries/ = SubResource("AnimationLibrary_uucha")
+
+[node name="EnemyStateMachine" type="Node" parent="." unique_id=1358508251]
+script = ExtResource("6_uygm1")
+metadata/_custom_type_script = "uid://i3qn4pbsaesp"
+
+[node name="ESWalk" type="Node" parent="EnemyStateMachine" unique_id=1698541953]
+unique_name_in_owner = true
+script = ExtResource("7_lrhuj")
+metadata/_custom_type_script = "uid://dywm0814cbsui"
+
+[node name="ESStun" type="Node" parent="EnemyStateMachine" unique_id=1893312370]
+unique_name_in_owner = true
+script = ExtResource("8_nu4ka")
+knockback_strength = 50.0
+metadata/_custom_type_script = "uid://bbod2suue51tu"
+
+[node name="ESDeath" type="Node" parent="EnemyStateMachine" unique_id=1791786181]
+unique_name_in_owner = true
+script = ExtResource("9_j1f5k")
+knockback_strength = 50.0
+death_audio = ExtResource("10_wta4c")
+metadata/_custom_type_script = "uid://ckvrvva6tg48"
+
+[node name="ESAttack" type="Node" parent="EnemyStateMachine" unique_id=1543683079]
+unique_name_in_owner = true
+script = ExtResource("13_bgsyj")
+move_speed = 100.0
+move_speed_curve = SubResource("Curve_lluae")
+metadata/_custom_type_script = "uid://cn1yskw26ax18"
+
+[node name="DecisionEngineBasic" type="Node" parent="." unique_id=466516351]
+script = ExtResource("11_jmskn")
+metadata/_custom_type_script = "uid://bmrx8xv8pech1"
+
+[node name="EdgeSensor" type="RayCast2D" parent="." unique_id=630034221]
+visible = false
+position = Vector2(7, 0)
+target_position = Vector2(0, 8)
+script = ExtResource("12_io8rv")
+metadata/_custom_type_script = "uid://bdsfqblna5q7o"
+
+[node name="PlayerSensor" type="Area2D" parent="." unique_id=976150026]
+visible = false
+position = Vector2(0, -7)
+script = ExtResource("13_pawht")
+metadata/_custom_type_script = "uid://4x848ophrw7x"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerSensor" unique_id=282976908]
+modulate = Color(1, 1, 1, 0.34901962)
+polygon = PackedVector2Array(0, 0, 256, -128, 256, 128)
+
+[node name="Label" type="Label" parent="." unique_id=711078983]
+visible = false
+offset_right = 40.0
+offset_bottom = 15.0
+script = SubResource("GDScript_3jlja")
+
+[node name="EnemyHitParticles" type="Marker2D" parent="." unique_id=638049467]
+visible = false
+position = Vector2(0, -7)
+script = ExtResource("14_pnjad")
+hit_particles = Array[ExtResource("15_oshsx")]([SubResource("Resource_qpicr")])
+death_particles = Array[ExtResource("15_oshsx")]([SubResource("Resource_vpnvx"), SubResource("Resource_7lkcl")])
+metadata/_custom_type_script = "uid://c5lnloigumv6o"
+
+[node name="LootDropper" type="Marker2D" parent="." unique_id=2116437714]
+visible = false
+position = Vector2(0, -12)
+script = ExtResource("16_n8rca")
+items = Array[ExtResource("17_qts50")]([SubResource("Resource_2mgqq")])
+metadata/_custom_type_script = "uid://bjjllxinpp7su"
+
+[node name="DamageModulate" type="Node" parent="." unique_id=2104223320]
+script = ExtResource("18_6vfrp")
+metadata/_custom_type_script = "uid://dpgocncx1onug"
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=960848646]
+position = Vector2(-8, -16)
+script = ExtResource("22_lluae")
+metadata/_custom_type_script = "uid://6elvigpr616e"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=622807594]
+position = Vector2(78, -16)
+shape = SubResource("RectangleShape2D_u3ofd")

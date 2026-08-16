@@ -1,0 +1,28 @@
+[gd_scene format=4 uid="uid://cgjhjbq1iwmbk"]
+
+[ext_resource type="Script" uid="uid://cl8wby0ke5808" path="res://general/scripts/breakable.gd" id="1_dea7j"]
+[ext_resource type="TileSet" uid="uid://jl8xm6vayrxi" path="res://levels/tilesets/forgotten_forest.tres" id="2_50l76"]
+[ext_resource type="Script" uid="uid://ptbycb4ueu2v" path="res://general/scripts/damage_area.gd" id="3_774ha"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_um801"]
+size = Vector2(88, 192)
+
+[node name="Breakablewall" type="Node2D" unique_id=1481702682]
+script = ExtResource("1_dea7j")
+metadata/_custom_type_script = "uid://cl8wby0ke5808"
+
+[node name="TileMapLayer4" type="TileMapLayer" parent="." unique_id=1617424231]
+tile_map_data = PackedByteArray("AAD+//z/DwAgABoAAAD+//3/DwAgABsAAAD///z/DwAhABoAAAD///3/DwAhABsAAAAAAPz/DwAiABoAAAAAAP3/DwAiABsAAAD+//7/DwAgABoAAAD+////DwAgABsAAAD///7/DwAhABoAAAD/////DwAhABsAAAAAAP7/DwAiABoAAAAAAP//DwAiABsAAAD+/wAADwAgABoAAAD+/wEADwAgABsAAAD//wAADwAhABoAAAD//wEADwAhABsAAAAAAAAADwAiABoAAAAAAAEADwAiABsAAAD+/wIADwAgABoAAAD+/wMADwAgABsAAAD//wIADwAhABoAAAD//wMADwAhABsAAAAAAAIADwAiABoAAAAAAAMADwAiABsAAAD+/wQADwAgABoAAAD+/wUADwAgABsAAAD//wQADwAhABoAAAD//wUADwAhABsAAAAAAAQADwAiABoAAAAAAAUADwAiABsAAAD+/wYADwAgABoAAAD+/wcADwAgABsAAAD//wYADwAhABoAAAD//wcADwAhABsAAAAAAAYADwAiABoAAAAAAAcADwAiABsAAAABAAYADwAhABwAAAABAAcADwAhAB0AAAACAAYADwAiABwAAAACAAcADwAiAB0AAAADAAYADwAjABwAAAADAAcADwAjAB0AAAABAAQADwAhABwAAAABAAUADwAhAB0AAAACAAQADwAiABwAAAACAAUADwAiAB0AAAADAAQADwAjABwAAAADAAUADwAjAB0AAAABAAIADwAhABwAAAABAAMADwAhAB0AAAACAAIADwAiABwAAAACAAMADwAiAB0AAAADAAIADwAjABwAAAADAAMADwAjAB0AAAABAAAADwAhABwAAAABAAEADwAhAB0AAAACAAAADwAiABwAAAACAAEADwAiAB0AAAADAAAADwAjABwAAAADAAEADwAjAB0AAAABAP7/DwAhABwAAAABAP//DwAhAB0AAAACAP7/DwAiABwAAAACAP//DwAiAB0AAAADAP7/DwAjABwAAAADAP//DwAjAB0AAAABAPz/DwAhABwAAAABAP3/DwAhAB0AAAACAPz/DwAiABwAAAACAP3/DwAiAB0AAAADAPz/DwAjABwAAAADAP3/DwAjAB0AAAA=")
+tile_set = ExtResource("2_50l76")
+collision_enabled = false
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=318761051]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("3_774ha")
+metadata/_custom_type_script = "uid://ptbycb4ueu2v"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=607603510]
+position = Vector2(16, 32)
+shape = SubResource("RectangleShape2D_um801")
+debug_color = Color(0.9227543, 0.2021541, 0.48530072, 0.41960785)

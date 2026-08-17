@@ -80,8 +80,7 @@ collision_enabled = false
 position = Vector2(704, 192)
 size = 3
 location = 1
-target_level = "uid://bmp2a4yhn3pmd"
-target_area_name = "LevelTransition6"
+target_level = "uid://du8hv1sey0lu7"
 
 [node name="LevelTransition" parent="." unique_id=479988781 instance=ExtResource("3_vl75o")]
 position = Vector2(0, 192)

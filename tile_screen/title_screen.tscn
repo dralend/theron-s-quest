@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpk5ibmruwx4q" path="res://tile_screen/title_screen.gd" id="1_bh32f"]
 [ext_resource type="Texture2D" uid="uid://8i8fhs1tc2hl" path="res://tile_screen/therons_quest_background_480x270.png" id="2_20v12"]
+[ext_resource type="Texture2D" uid="uid://codlhdkxm5wye" path="res://general/sprites/button.png" id="4_af0m1"]
 [ext_resource type="Texture2D" uid="uid://b11h5yxxyex7c" path="res://tile_screen/TheronsQuest_TitleAnimation.png" id="5_lac46"]
 [ext_resource type="Script" uid="uid://11wam0e7xdau" path="res://music/music_auto_trigger.gd" id="6_lac46"]
 [ext_resource type="AudioStream" uid="uid://c6xm5v8c17hx0" path="res://music/title_01.ogg" id="7_4fx0s"]
@@ -44,6 +45,78 @@ _data = {
 &"RESET": SubResource("Animation_bh32f"),
 &"loop": SubResource("Animation_20v12")
 }
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lac46"]
+texture = ExtResource("4_af0m1")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_af0m1"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(0.96989816, 0.93921375, 7.70092e-07, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4fx0s"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rgv5g"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(0.96989816, 0.93921375, 7.70092e-07, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fo08l"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hf63l"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wbc53"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(0.96989816, 0.93921375, 7.70092e-07, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t8iht"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnu6v"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dl3ib"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(1, 1, 0.37254903, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7f164"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qdecw"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(0.96989816, 0.93921375, 7.70092e-07, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1pmo6"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xmy6a"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ejwjk"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(1, 1, 0.37254903, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fsudw"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sfo74"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tp1x6"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(1, 1, 0.37254903, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ae4k1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02i5q"]
+texture = ExtResource("4_af0m1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4k1on"]
+texture = ExtResource("4_af0m1")
+modulate_color = Color(1, 1, 0.37254903, 1)
 
 [node name="TitleScreen" type="CanvasLayer" unique_id=1538423371]
 layer = 5
@@ -115,12 +188,18 @@ autoplay = &"loop"
 
 [node name="NewGameButton" type="Button" parent="Control/CanvasLayer/MainMenu" unique_id=564248632]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_lac46")
+theme_override_styles/hover = SubResource("StyleBoxTexture_af0m1")
 text = "New Game"
 
 [node name="LoadGameButton" type="Button" parent="Control/CanvasLayer/MainMenu" unique_id=1990353499]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_4fx0s")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rgv5g")
 text = "Load Game"
 
 [node name="NewGameMenu" type="VBoxContainer" parent="Control/CanvasLayer" unique_id=832925364]
@@ -150,17 +229,28 @@ layout_mode = 2
 
 [node name="NewSlot01" type="Button" parent="Control/CanvasLayer/NewGameMenu" unique_id=197461283]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_fo08l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hf63l")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wbc53")
 text = "Begin Slot 01"
 
 [node name="NewSlot02" type="Button" parent="Control/CanvasLayer/NewGameMenu" unique_id=1266444881]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_t8iht")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xnu6v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dl3ib")
 text = "Begin Slot 02"
 
 [node name="NewSlot03" type="Button" parent="Control/CanvasLayer/NewGameMenu" unique_id=909321091]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_7f164")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qdecw")
 text = "Begin Slot 03"
 
 [node name="LoadGameMenu" type="VBoxContainer" parent="Control/CanvasLayer" unique_id=1748030121]
@@ -190,17 +280,29 @@ layout_mode = 2
 
 [node name="LoadSlot01" type="Button" parent="Control/CanvasLayer/LoadGameMenu" unique_id=364218526]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_1pmo6")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xmy6a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ejwjk")
 text = "Load Slot 01"
 
 [node name="LoadSlot02" type="Button" parent="Control/CanvasLayer/LoadGameMenu" unique_id=1290139149]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_fsudw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_sfo74")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tp1x6")
 text = "Load Slot 02"
 
 [node name="LoadSlot03" type="Button" parent="Control/CanvasLayer/LoadGameMenu" unique_id=1007384870]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ae4k1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_02i5q")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4k1on")
 text = "Load Slot 03"
 
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=132162175]

@@ -40,6 +40,9 @@ func _ready() -> void:
 		reward.process_mode = Node.PROCESS_MODE_DISABLED
 		reward.visible = false
 	
+	if SaveManager.persistent_data.get_or_add(unique_name(), "") == "defeated":
+		queue_free()
+	
 	pass
 
 

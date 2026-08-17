@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c1wmypwy4w7kb" path="res://pause_menu/scripts/pause_menu.gd" id="1_5hbt6"]
 [ext_resource type="PackedScene" uid="uid://c0rl1tb0m8osm" path="res://pause_menu/map_node.tscn" id="2_rd7dy"]
 [ext_resource type="Script" uid="uid://bp8rf02l5q78x" path="res://pause_menu/scripts/abilities_list.gd" id="3_b4s0c"]
+[ext_resource type="Texture2D" uid="uid://codlhdkxm5wye" path="res://general/sprites/button.png" id="3_s1glv"]
 [ext_resource type="Texture2D" uid="uid://cuhektkx5h4wj" path="res://player/sprites/abilities.png" id="3_uwtdo"]
 
 [sub_resource type="FontVariation" id="FontVariation_5hbt6"]
@@ -59,6 +60,15 @@ _data = {
 &"default": SubResource("Animation_b4s0c")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wn31l"]
+texture = ExtResource("3_s1glv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b0obc"]
+texture = ExtResource("3_s1glv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cux0y"]
+texture = ExtResource("3_s1glv")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_b4s0c"]
 atlas = ExtResource("3_uwtdo")
 region = Rect2(96, 32, 32, 32)
@@ -77,6 +87,24 @@ region = Rect2(64, 64, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cux0y"]
 atlas = SubResource("CompressedTexture2D_s1glv")
 region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s1glv"]
+texture = ExtResource("3_s1glv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_teyq6"]
+texture = ExtResource("3_s1glv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p6csp"]
+texture = ExtResource("3_s1glv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1nv8k"]
+texture = ExtResource("3_s1glv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qi88y"]
+texture = ExtResource("3_s1glv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ja1mc"]
+texture = ExtResource("3_s1glv")
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=1925147686]
 process_mode = 3
@@ -149,9 +177,9 @@ color = Color(0, 0, 0, 1)
 
 [node name="Map" type="Control" parent="Control/PauseScreen" unique_id=794272389]
 anchors_preset = 0
-offset_left = 149.0
+offset_left = 150.0
 offset_top = 24.0
-offset_right = 423.0
+offset_right = 424.0
 offset_bottom = 177.0
 
 [node name="PlayerIndicator" type="Control" parent="Control/PauseScreen/Map" unique_id=1154412634]
@@ -440,9 +468,14 @@ offset_left = 35.0
 offset_right = 47.0
 
 [node name="MapNode26" parent="Control/PauseScreen/Map" unique_id=1655971150 instance=ExtResource("2_rd7dy")]
+modulate = Color(0.45490196, 0.37254903, 0.68235296, 1)
 layout_mode = 0
-offset_left = 35.0
-offset_right = 47.0
+offset_left = 190.0
+offset_top = 22.0
+offset_right = 202.0
+offset_bottom = 29.0
+linked_scene = "uid://du8hv1sey0lu7"
+entrances_left = Array[float]([2.0])
 
 [node name="MapNode27" parent="Control/PauseScreen/Map" unique_id=722565510 instance=ExtResource("2_rd7dy")]
 modulate = Color(0.45490196, 0.37254903, 0.68235296, 1)
@@ -654,6 +687,7 @@ text = "Map"
 
 [node name="SystemMenuButton" type="Button" parent="Control/PauseScreen" unique_id=303577742]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -661,11 +695,14 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -105.0
-offset_top = -31.0
+offset_top = -40.0
 offset_right = -8.0
-offset_bottom = -8.0
+offset_bottom = -5.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_wn31l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_b0obc")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cux0y")
 text = "System"
 
 [node name="AbilitiesList" type="VBoxContainer" parent="Control/PauseScreen" unique_id=1065691669]
@@ -732,14 +769,22 @@ layout_mode = 2
 
 [node name="BackToMapButton" type="Button" parent="Control/System/VBoxContainer/HBoxContainer" unique_id=1523138310]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_s1glv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_teyq6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_p6csp")
 text = "Back to Map"
 
 [node name="BackToTitleButton" type="Button" parent="Control/System/VBoxContainer/HBoxContainer" unique_id=1314412151]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_1nv8k")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qi88y")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ja1mc")
 text = "Back to Title"
 
 [node name="Label" type="Label" parent="Control/System/VBoxContainer" unique_id=1248566027]

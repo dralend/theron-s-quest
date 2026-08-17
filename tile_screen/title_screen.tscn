@@ -85,6 +85,9 @@ modulate_color = Color(1, 1, 0.37254903, 1)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7f164"]
 texture = ExtResource("4_af0m1")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0dv2e"]
+texture = ExtResource("4_af0m1")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qdecw"]
 texture = ExtResource("4_af0m1")
 modulate_color = Color(0.96989816, 0.93921375, 7.70092e-07, 1)
@@ -110,6 +113,7 @@ texture = ExtResource("4_af0m1")
 modulate_color = Color(1, 1, 0.37254903, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ae4k1"]
+texture = ExtResource("4_af0m1")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02i5q"]
 texture = ExtResource("4_af0m1")
@@ -250,6 +254,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_7f164")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0dv2e")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qdecw")
 text = "Begin Slot 03"
 
